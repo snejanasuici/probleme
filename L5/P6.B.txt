@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void binar(int x,int *v,int *k)
+{
+    if(x) {
+            *(v+(*k))=x%2;
+          (*k)++;
+        binar(x/2,v,k);
+    }
+}
+
+int numar(int *v,int k)
+{
+    int i,nr=0;
+    for(i=k;i>=0;i--)
+    {
+        if(v[i]==1) nr++;
+    }
+    return nr;
+}
+
+int main()
+{
+    int i,x,*v,k=0,nr_max;
+
+    v=(int*)malloc(sizeof(int)*8);
+
+    do{
+        printf("x=");scanf("%d",&x);
+    }while(x>255||x<0);
+
+    binar(x,v,&k);
+
+    x=numar(v,k);
+
+    nr_max=0;
+
+    for(i=k;i>0;i--)
+    {
+        if(x!=0){nr_max=nr_max*10+1;
+                  x--;
+        }
+       else nr_max=nr_max*10;
+    }
+
+     printf("%d ",nr_max);
+
+    return 0;
+}
